@@ -2,11 +2,13 @@
     <div class="card-content">
         <b-field label="ประวัติการแพ้ยา :">
             <b-radio
+                @input="fireChanges"
                 v-model="allergic"
                 name="name"
                 value="false"
             >ไม่เคยแพ้</b-radio>
             <b-radio
+                @input="fireChanges"
                 v-model="allergic"
                 name="name"
                 value="true"
@@ -17,10 +19,18 @@
 
 <script>
 export default {
-    data: function() {
+    props: ["value"],
+    data() {
         return {
-            allergic: false
+            allergic: this.value.allergic
+        };
+    },
+    methods: {
+        fireChanges() {
+            this.$emit("input", {
+                allergic: this.allergic
+            });
         }
     }
-}
+};
 </script>
