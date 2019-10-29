@@ -4,7 +4,7 @@
       <h1>ผู้ติดต่อได้กรณีฉุกเฉิน</h1>
       <b-field>
         <b-field label="คำนำหน้า">
-          <b-select placeholder="คำนำหน้า" v-model="parentInfo.callAs">
+          <b-select placeholder="คำนำหน้า" @input="firechanges" v-model="parentInfo.callAs">
             <option value="นาย">นาย</option>
             <option value="นาง">นาง</option>
             <option value="นางสาว">นางสาว</option>
@@ -13,24 +13,24 @@
           </b-select>
         </b-field>
         <b-field label="ชื่อ">
-          <b-input v-model="parentInfo.firstName"></b-input>
+          <b-input v-model="parentInfo.firstName" @input="firechanges"></b-input>
         </b-field>
         <b-field label="นามสกุล">
-          <b-input v-model="parentInfo.lastName"></b-input>
+          <b-input @input="firechanges" v-model="parentInfo.lastName"></b-input>
         </b-field>
       </b-field>
       <b-checkbox>ใช้ที่อยู่เดียวกับผู้ป่วย</b-checkbox>
       <b-field>
         <b-field label="บ้านเลขที่">
-          <b-input v-model="parentInfo.houseNum"></b-input>
+          <b-input @input="firechanges" v-model="parentInfo.houseNum"></b-input>
         </b-field>
         <b-field label="หมู่">
-          <b-input v-model="parentInfo.moo"></b-input>
+          <b-input v-model="parentInfo.moo" @input="firechanges"></b-input>
         </b-field>
       </b-field>
       <b-field>
         <b-field label="ตำบล">
-          <b-select v-model="parentInfo.tambon">
+          <b-select v-model="parentInfo.tambon" @input="firechanges">
             <option
               v-for="item in carrerLabel"
               :value="item.select"
@@ -39,22 +39,22 @@
           </b-select>
         </b-field>
         <b-field label="อำเภอ">
-          <b-select v-model="parentInfo.aumpue">
+          <b-select @input="firechanges" v-model="parentInfo.aumpue">
             <option v-for="item in carrerLabel" :value="item.val" :key="item.id">{{ item.select }}</option>
           </b-select>
         </b-field>
         <b-field label="จังหวัด">
-          <b-select v-model="parentInfo.province">
+          <b-select @input="firechanges" v-model="parentInfo.province">
             <option v-for="item in provinceLabel" :value="item.val" :key="item.id">{{ item.select }}</option>
           </b-select>
         </b-field>
       </b-field>
       <b-field>
         <b-field label="โทรศัพท์">
-          <b-input v-model="parentInfo.phoneNum"></b-input>
+          <b-input @input="firechanges" v-model="parentInfo.phoneNum"></b-input>
         </b-field>
         <b-field label="อีเมลล์">
-          <b-input v-model="parentInfo.email"></b-input>
+          <b-input v-model="parentInfo.email" @input="firechanges"></b-input>
         </b-field>
       </b-field>
       <b-field label="ผู้ติดต่อได้เกี่ยวข้องเป็น :">
@@ -65,6 +65,7 @@
             :v-model="parentInfo.relation"
             :name="name"
             :native-value="item.select"
+            @input="firechanges"
           >{{ item.select }}</b-radio>
           <!-- <b-radio v-model="parentInfo.relation"
                 name="name"
@@ -89,25 +90,25 @@
         </b-field>
       </b-field>
     </div>
-    {{parentInfo}}
   </div>
 </template>
 
 <script>
 export default {
+  props: ["value"],
   data: function() {
     return {
       parentInfo: {
-        callAs: "",
-        firstName: "",
-        lastName: "",
-        houseNum: "",
-        province: "",
-        tambon: "",
-        aunpue: "",
-        phoneNum: "",
-        email: "",
-        relation: ""
+        callAs: this.value.callAs,
+        firstName: this.value.firstName,
+        lastName: this.value.lastName,
+        houseNum: this.value.houseNum,
+        province: this.value.province,
+        tambon: this.value.tambon,
+        aunpue: this.value.aumpue,
+        phoneNum: this.value.phoneNum,
+        email: this.value.email,
+        relation: this.value.relation
       },
       relationLabel: [
         { id: "0", select: "พ่อ" },
@@ -136,6 +137,22 @@ export default {
       ],
       tambonOfMuk: [{ id: "0", select: "มุก1" }, { id: "1", select: "มุก2" }]
     };
+  },
+  methods: {
+    firechanges() {
+      this.$emit("input", {
+        callAs: this.parentInfo.callAs,
+        firstName: this.parentInfo.firstName,
+        lastName: this.parentInfo.lastName,
+        houseNum: this.parentInfo.houseNum,
+        province: this.parentInfo.province,
+        tambon: this.parentInfo.tambon,
+        aunpue: this.parentInfo.aumpue,
+        phoneNum: this.parentInfo.phoneNum,
+        email: this.parentInfo.email,
+        relation: this.parentInfo.relation,
+      },
+    },
   }
 };
 </script>

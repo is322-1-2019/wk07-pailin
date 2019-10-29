@@ -177,7 +177,7 @@
 
 <script>
 export default {
-  props: ["values"],
+  props: ["value"],
   data() {
     return {
       patientInfo: {

@@ -2,7 +2,7 @@
     <div class="container" id="maincard">
       <div class="card" id="maincard">
         <data-in v-model="patientInfo"></data-in>
-        <parent-of-patient></parent-of-patient>
+        <parent-of-patient v-model="parentInfo"></parent-of-patient>
         <allergic></allergic>
         <yomrub></yomrub>
         <application v-model="allergic"></application>
@@ -54,6 +54,18 @@ export default {
         dadLastName: "",
         momFirstName: "",
         momLastName: "",
+      },
+      patientInfo: {
+        callAs: "",
+        firstName: "",
+        lastName: "",
+        houseNum: "",
+        province: "",
+        tambon: "",
+        aunpue: "",
+        phoneNum: "",
+        email: "",
+        relation: ""
       },
       hasError: false,
     };
