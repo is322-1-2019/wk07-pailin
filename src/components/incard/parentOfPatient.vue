@@ -151,8 +151,8 @@ export default {
         phoneNum: this.parentInfo.phoneNum,
         email: this.parentInfo.email,
         relation: this.parentInfo.relation,
-      },
-    },
+      })
+    }
   }
 };
 </script>

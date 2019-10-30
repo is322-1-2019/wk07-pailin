@@ -8,6 +8,7 @@
         <application v-model="allergic"></application>
         <p>{{allergic}}</p>
         <p>{{patientInfo}}</p>
+        <p>{{parentInfo}}</p>
       </div>
     </div>
 </template>
@@ -55,7 +56,7 @@ export default {
         momFirstName: "",
         momLastName: "",
       },
-      patientInfo: {
+      parentInfo: {
         callAs: "",
         firstName: "",
         lastName: "",
